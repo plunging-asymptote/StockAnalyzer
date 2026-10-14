@@ -62,9 +62,3 @@ def calculate_daily_return(filename):
     ticker["Return"] = list_daily_return
     
     data_functions.export_data(ticker)
-    
-def function(foo):
-    """
-    lovely documentation 
-    """
-    return 
