@@ -9,7 +9,9 @@ def main():
             choice_selector = int(input("Select an option:" 
                                     " 1. Pool CSV data." 
                                     " 2. Segment data based on date."
-                                    " 3. Calculate daily returns. 9. Exit "))
+                                    " 3. Calculate daily returns." 
+                                    " 4. Show return details. "
+                                    " 9. Exit "))
             selected = True
         except ValueError:
             print("Only enter numbers!")
@@ -18,7 +20,7 @@ def main():
             match choice_selector:
                 case 1:
                     csv_path = str(input
-                                   ("Input the folder containg all .csv files:"))
+                                   ("Input the folder containg .csv files:"))
                     try: 
                         data_functions.pool_csv(csv_path)
                         print("Successfully pooled data")
@@ -36,6 +38,12 @@ def main():
                         filename = str(input("Input filename of data: "))
                         financial_functions.calculate_daily_return(filename)
                         print("Successfully calculated daily return data")
+                    except Exception as e:
+                        print(f"Error: {e}")
+                case 4:
+                    try:
+                        filename = str(input("Input filename of data: "))
+                        financial_functions.return_details(filename)
                     except Exception as e:
                         print(f"Error: {e}")
                 case 9:

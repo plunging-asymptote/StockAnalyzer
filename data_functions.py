@@ -3,7 +3,7 @@ import pathlib
 
 def export_data(dataframe):
     
-    file_selector = int(input("Save to: 1. .csv 2. .xlxs 3. Both "))
+    file_selector = int(input("Save to: 1. csv 2. xlxs 3. Both "))
     write_file = str(input("Input desired filename for exported file: "))
     
     match file_selector: #Create a file containing all the data.
