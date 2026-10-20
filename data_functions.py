@@ -47,3 +47,34 @@ def segment_data(filename):
     segmented_dataframe = segmented_dataframe.reset_index(drop = True)
     
     export_data(segmented_dataframe)
+    
+def load_data(filename):
+    dataframe = pandas.DataFrame()
+    
+    if filename.endswith(".csv"):
+        dataframe = pandas.read_csv(filename)
+    elif filename.endswith(".xlsx"):
+        dataframe = pandas.read_excel(filename)
+        
+    return dataframe
+
+def sort_by_ticker(dataframe, concat = True):
+    
+    sorted_dataframe = dataframe
+    sorted_dataframe = sorted_dataframe.sort_values(by = "Date")
+    
+    ticker_set = set(sorted_dataframe["Ticker"])
+    
+    ticker = []
+    
+    for x in ticker_set:
+        new_data = sorted_dataframe[sorted_dataframe["Ticker"] == x]
+        ticker.append(new_data)
+        
+    
+    sorted_dataframe = ticker
+    
+    if concat == True:
+        sorted_dataframe = pandas.concat(ticker)
+    
+    return sorted_dataframe

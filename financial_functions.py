@@ -3,23 +3,12 @@ import data_functions
 import numpy
 
 def calculate_daily_return(filename):
-    dataframe = pandas.DataFrame()
-    
-    if filename.endswith(".csv"):
-        dataframe = pandas.read_csv(filename)
-    elif filename.endswith(".xlsx"):
-        dataframe = pandas.read_excel("2022.xlsx")
+
+    dataframe = data_functions.load_data(filename)
         
-    ticker_open_close = dataframe[["Ticker", "Date", "Open", "Close"]]
-    ticker_open_close = ticker_open_close.sort_values(by = "Ticker")
+    ticker_open_close = dataframe.sort_values(by = "Ticker")
     
-    ticker_set = set(dataframe["Ticker"])
-    
-    ticker = []
-    
-    for x in ticker_set:
-        new_data = dataframe[dataframe["Ticker"] == x]
-        ticker.append(new_data)
+    ticker = data_functions.sort_by_ticker(ticker_open_close, concat = False)
         
     for x in range(len(ticker)):
         ticker[x] = ticker[x].reset_index(drop = True)
@@ -69,12 +58,8 @@ def calculate_daily_return(filename):
     data_functions.export_data(master_ticker)
 
 def return_details(filename):
-    dataframe = pandas.DataFrame()
     
-    if filename.endswith(".csv"):
-        dataframe = pandas.read_csv(filename)
-    elif filename.endswith(".xlsx"):
-        dataframe = pandas.read_excel(filename)
+    dataframe = data_functions.load_data(filename)
     
     stock_returns = dataframe["Return"]
         
@@ -104,9 +89,9 @@ def return_details(filename):
         print(f"Average daily return of {ticker[x].iloc[0]['Ticker']}"
               f" is {average_return:.2f}."
               f" Best day: {ticker[x].iloc[best_day_index]['Date']}"
-              f" with return: {ticker[x].iloc[best_day_index]['Return']:.2f}."
+              f" return: {ticker[x].iloc[best_day_index]['Return']:.2f}."
               f" Worst day: {ticker[x].iloc[worst_day_index]['Date']}"
-              f" with return: {ticker[x].iloc[worst_day_index]['Return']:.2f}.")
+              f" return: {ticker[x].iloc[worst_day_index]['Return']:.2f}.")
     
     export_select = int(input("Do you want to export data? 1. Yes. 2. No "))
     

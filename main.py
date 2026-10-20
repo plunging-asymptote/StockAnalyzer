@@ -1,5 +1,6 @@
 import data_functions
 import financial_functions
+import plot_functions
       
 def main():
     running = True
@@ -11,6 +12,7 @@ def main():
                                     " 2. Segment data based on date."
                                     " 3. Calculate daily returns." 
                                     " 4. Show return details. "
+                                    " 5. Plot stock. "
                                     " 9. Exit "))
             selected = True
         except ValueError:
@@ -44,6 +46,13 @@ def main():
                     try:
                         filename = str(input("Input filename of data: "))
                         financial_functions.return_details(filename)
+                    except Exception as e:
+                        print(f"Error: {e}")
+                case 5:
+                    try:
+                        filename = str(input("Input filename of data: "))
+                        ticker = str(input("Input name of stock: "))
+                        plot_functions.plot_stock(filename, ticker)
                     except Exception as e:
                         print(f"Error: {e}")
                 case 9:
