@@ -8,4 +8,5 @@ WIP
 Example of plot output:
 <img width="432" height="288" alt="DJI_2021" src="https://github.com/user-attachments/assets/8a91e824-2db8-4b63-93b3-ddfb289d13da" />
 
-Example of return data analyzed using Power BI: <img width="1232" height="706" alt="ReturnsCLF" src="https://github.com/user-attachments/assets/d85daf3d-2a86-47f1-88d5-d9e362565a7a" />
+Example of return data analyzed using Power BI: <img width="1195" height="686" alt="ReturnsCLF" src="https://github.com/user-attachments/assets/58f92798-fda3-4009-8521-9cf09ee3b2ef" />
+
