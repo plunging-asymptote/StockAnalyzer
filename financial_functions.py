@@ -5,6 +5,8 @@ import numpy
 def calculate_daily_return(filename):
 
     dataframe = data_functions.load_data(filename)
+    
+    dataframe = data_functions.remove_negatives(dataframe, "Close")
         
     ticker_open_close = dataframe.sort_values(by = "Ticker")
     
@@ -36,18 +38,25 @@ def calculate_daily_return(filename):
         list_positive_negative = []
     
         for x_1 in range(len(ticker[x]) - 1):
-            today_close = ticker[x]["Close"].iloc[x_1 + 1]
-            yesterday_close = ticker[x]["Close"].iloc[x_1]
-            daily_return = (
-                ((today_close - yesterday_close) / yesterday_close) * 100)
-            if daily_return > 0:
-                list_positive_negative.append(True)
-            elif daily_return < 0:
-                list_positive_negative.append(False)
+            today_date = pandas.to_datetime(ticker[x]["Date"].iloc[x_1 + 1])
+            yesterday_date = pandas.to_datetime(ticker[x]["Date"].iloc[x_1])
+            gap = (today_date - yesterday_date).days
+            if gap > 1:
+                list_daily_return.append(0)
+                list_positive_negative.append(3)
             else:
-                list_positive_negative.append(None)
-            list_daily_return.append(daily_return)
-        
+                today_close = ticker[x]["Close"].iloc[x_1 + 1]
+                yesterday_close = ticker[x]["Close"].iloc[x_1]
+                daily_return = (
+                    ((today_close - yesterday_close) / yesterday_close) * 100)
+                if daily_return > 0:
+                    list_positive_negative.append(1)
+                elif daily_return < 0:
+                    list_positive_negative.append(0)
+                else:
+                    list_positive_negative.append(3)
+                list_daily_return.append(daily_return)
+            
         ticker[x] = ticker[x].drop(0)
         ticker[x] = ticker[x].reset_index(drop = True)
         ticker[x]["Return"] = list_daily_return

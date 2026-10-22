@@ -78,3 +78,16 @@ def sort_by_ticker(dataframe, concat = True):
         sorted_dataframe = pandas.concat(ticker)
     
     return sorted_dataframe
+
+def remove_negatives(dataframe, column):
+    
+    rows_to_remove = []
+    
+    for x in range(len(dataframe)):
+        if dataframe.iloc[x]["Close"] < 0:
+            rows_to_remove.append(x)
+            
+    for z in rows_to_remove:
+        dataframe = dataframe.drop(z)
+    
+    return dataframe
